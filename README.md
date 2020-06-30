@@ -1,1 +1,1 @@
-# balikobot_tmp_2
+# balikobot technologicke preview se schvalenou strukturou

@@ -3,9 +3,9 @@ from . import (
     settings_local,
 )
 
-from balikobot_connector.logger_wrapper import LOGGER_NAME as lw_logger_name
-from balikobot_connector.logger_wrapper import LOG_FILE as lw_log_file
-from balikobot_connector.logger_wrapper import LOG_LEVEL as lw_logg_level
+from logger_wrapper import LOGGER_NAME as lw_logger_name
+from logger_wrapper import LOG_FILE as lw_log_file
+from logger_wrapper import LOG_LEVEL as lw_logg_level
 import logging
 
 
@@ -86,7 +86,22 @@ class SettingsWrapper:
             atr_name='LTECH_LEVEL',
             def_value=lw_logg_level,
         )))
+        self.logger.debug('add data to settings=> SQLALCHEMY_DATABASE_TYPE: ()'.format(self.set_entry(
+            par_object=settings_local,
+            target_dic=self.settings_local,
+            atr_name='SQLALCHEMY_DATABASE_TYPE',
+            def_value='SQLITE',
+        )))
+        self.logger.debug('add data to settings=> SQLALCHEMY_DATABASE_URL: ()'.format(self.set_entry(
+            par_object=settings_local,
+            target_dic=self.settings_local,
+            atr_name='SQLALCHEMY_DATABASE_URL',
+            def_value='sqlite:///./sql_balikobot.db',
+        )))
         return
+
+    def get_logger_name(self, postfix: str) -> str:
+        return '{}.{}'.format(self.settings_local['LOGGER_NAME'], postfix)
 
     def __repr__(self):
         return 'SettingsWrapper()'

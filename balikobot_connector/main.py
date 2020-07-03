@@ -4,14 +4,18 @@ from fastapi.templating import Jinja2Templates
 from fastapi.logger import logger as fastapi_logger
 
 
-from balikobot_connector import SETTING_CONTAINER, LOGGER_MAIN_NAME
-from balikobot_connector.routers import shipment
-# from elentos_balikobot.sql_app import models
-# from elentos_balikobot.sql_app.database import engine, database
+from conf import SETTING_CONTAINER
+from conf.settings_wrapper import SettingsWrapper
+SETTING_CONTAINER = SettingsWrapper()
+SETTING_CONTAINER.read_data()
+LOGGER_MAIN_NAME = SETTING_CONTAINER.settings_local['LOGGER_NAME']
+
+from routers import shipment
+from sql_factory import models
+from sql_factory.database import engine, database
 
 import logging
 from datetime import datetime
-
 from logger_wrapper.logger_wrapper import LoggerWrapper
 
 # ------ logger section
@@ -49,13 +53,13 @@ app.include_router(
      shipment.router,
  )
 
-#models.Base.metadata.create_all()
+models.Base.metadata.create_all()
 
 app.mount("/static", StaticFiles(directory="./static"), name="static")
 template = Jinja2Templates(directory="./templates")
 
+
 # ---- events section
-"""
 @app.on_event("startup")
 async def startup():
     await database.connect()
@@ -66,4 +70,3 @@ async def startup():
 async def shutdown():
     await database.disconnect()
     return
-"""

@@ -56,43 +56,69 @@ class SettingsWrapper:
             atr_name='PORT',
             def_value=8000,
         )))
-        self.logger.debug('add data to settings=> LOGGER_NAME: ()'.format(self.set_entry(
+        self.logger.debug('add data to settings=> API_TITLE: ()'.format(self.set_entry(
+            par_object=settings,
+            target_dic=self.settings,
+            atr_name='API_TITLE',
+            def_value='API title',
+        )))
+        self.logger.debug('add data to settings=> API_DESCRIPTION: ()'.format(self.set_entry(
+            par_object=settings,
+            target_dic=self.settings,
+            atr_name='API_DESCRIPTION',
+            def_value='Some simple description for the API',
+        )))
+        self.logger.debug('add data to settings=> API_MAIN_VERSION: ()'.format(self.set_entry(
+            par_object=settings,
+            target_dic=self.settings,
+            atr_name='API_MAIN_VERSION',
+            def_value='0.0.1',
+        )))
+        self.logger.debug('add data to settings=> API_SUPER_SECRET_TOKEN: ()'.format(self.set_entry(
+            par_object=settings,
+            target_dic=self.settings,
+            atr_name='API_SUPER_SECRET_TOKEN',
+            def_value='SuPeR_SeCrEd_TOKEN',
+        )))
+
+        # -------- local settings
+        self.logger.debug('add data to local settings=> LOGGER_NAME: ()'.format(self.set_entry(
             par_object=settings_local,
             target_dic=self.settings_local,
             atr_name='LOGGER_NAME',
             def_value=lw_logger_name,
         )))
-        self.logger.debug('add data to settings=> LOGGER_FILE: ()'.format(self.set_entry(
+        self.logger.debug('add data to local settings=> LOGGER_FILE: ()'.format(self.set_entry(
             par_object=settings_local,
             target_dic=self.settings_local,
             atr_name='LOGGER_FILE',
             def_value=lw_log_file,
         )))
-        self.logger.debug('add data to settings=> LOG_LEVEL: ()'.format(self.set_entry(
+        self.logger.debug('add data to local settings=> LOG_LEVEL: ()'.format(self.set_entry(
             par_object=settings_local,
             target_dic=self.settings_local,
             atr_name='LOG_LEVEL',
             def_value=lw_logg_level,
         )))
-        self.logger.debug('add data to settings=> LTECH_FILE: ()'.format(self.set_entry(
+        self.logger.debug('add data to local settings=> LTECH_FILE: ()'.format(self.set_entry(
             par_object=settings_local,
             target_dic=self.settings_local,
             atr_name='LTECH_FILE',
             def_value=lw_log_file,
         )))
-        self.logger.debug('add data to settings=> LTECH_LEVEL: ()'.format(self.set_entry(
+        self.logger.debug('add data to local settings=> LTECH_LEVEL: ()'.format(self.set_entry(
             par_object=settings_local,
             target_dic=self.settings_local,
             atr_name='LTECH_LEVEL',
             def_value=lw_logg_level,
         )))
-        self.logger.debug('add data to settings=> SQLALCHEMY_DATABASE_TYPE: ()'.format(self.set_entry(
+        self.logger.debug('add data to local settings=> SQLALCHEMY_DATABASE_TYPE: ()'.format(self.set_entry(
             par_object=settings_local,
             target_dic=self.settings_local,
             atr_name='SQLALCHEMY_DATABASE_TYPE',
             def_value='SQLITE',
         )))
-        self.logger.debug('add data to settings=> SQLALCHEMY_DATABASE_URL: ()'.format(self.set_entry(
+        self.logger.debug('add data to local settings=> SQLALCHEMY_DATABASE_URL: ()'.format(self.set_entry(
             par_object=settings_local,
             target_dic=self.settings_local,
             atr_name='SQLALCHEMY_DATABASE_URL',

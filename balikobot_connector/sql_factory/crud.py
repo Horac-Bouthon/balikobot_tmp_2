@@ -12,9 +12,10 @@ def get_shipments(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Shipment).filter(models.Shipment.is_active == True).offset(skip).limit(limit).all()
 
 
-def create_shipment(db: Session, pack: s_ship.ShipmentCreate):
+def create_shipment(db: Session, shipment: s_ship.ShipmentCreate):
     db_ship = models.Shipment(
-        original_id = pack.original_id,
+        original_id=shipment.original_id,
+        is_test=shipment.is_test,
     )
     db.add(db_ship)
     db.commit()

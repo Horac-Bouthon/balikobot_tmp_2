@@ -40,7 +40,7 @@ def create_shipments(
     db: Session = Depends(get_db)
 ):
     """ add or update shipment """
-    internal_logger.debug('connect create_shipments')
+    internal_logger.debug('add shipment {}'.format(repr(obj_pack)))
     return create_shipment(db, obj_pack)
 
 
@@ -61,6 +61,7 @@ async def as_add_shipment(
     )
     last_record_id = await database.execute(query)
     result = await database.fetch_one(select([shipments_async]).where(shipments_async.c.id == last_record_id))
+    internal_logger.debug('add shipment {}'.format(repr(result)))
     return result
 
 

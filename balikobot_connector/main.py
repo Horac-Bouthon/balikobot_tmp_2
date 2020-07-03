@@ -1,4 +1,5 @@
-from fastapi import FastAPI
+import uvicorn
+from fastapi import Depends, FastAPI, Header, HTTPException
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.logger import logger as fastapi_logger
@@ -46,11 +47,21 @@ else:
 logger.info("Server started at {}".format(datetime.now()))
 
 # ---- routers section
-app = FastAPI()
+app = FastAPI(
+    title=SETTING_CONTAINER.settings['API_TITLE'],
+    description=SETTING_CONTAINER.settings['API_DESCRIPTION'],
+    version=SETTING_CONTAINER.settings['API_MAIN_VERSION'],
+)
+
+
+async def get_token_header(x_token: str = Header(...)):
+    if x_token != SETTING_CONTAINER.settings['API_SUPER_SECRET_TOKEN']:
+        raise HTTPException(status_code=400, detail="X-Token header invalid")
 
 
 app.include_router(
      shipment.router,
+     dependencies=[Depends(get_token_header)],
  )
 
 models.Base.metadata.create_all()
@@ -70,3 +81,14 @@ async def startup():
 async def shutdown():
     await database.disconnect()
     return
+
+
+if __name__ == "__main__":
+    uvicorn.run(
+        app='main:app',
+        host=SETTING_CONTAINER.settings['HOST'],
+        port=SETTING_CONTAINER.settings['PORT'],
+        reload=True,
+        debug=True,
+        workers=1,
+    )
